@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cabaña Fest</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="/public/css/normalize.css">
+</head>
+<body>
+  <!-- Sección Hero -->
+  <header>
+    <nav class="navbar">
+      <a href="#nosotros" class="nav-link">Nosotros</a>
+      <a href="#eventos" class="nav-link">Eventos</a>
+      <a href="/public/compraboletos.html" class="nav-link">Boletos</a>
+      <a href="https://www.instagram.com/torosbravosrecords" class="nav-link">TBR</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HerO principal -->
+    <section class="hero" id="nosotros">
+      <h1 class="title">CABAÑA FEST</h1>
+      <p class="subtitle">¡El mejor festival de música en cabañas!</p>
+      <a href="/public/compraboletos.html" class="cta">Adquiere tus boletos</a>
+      <p class="hashtags">
+      #cabañafestrosarito #airbnb #spotify #applemusic
+      </p>  
+    </section>
+    <!-- Seccion Eventos -->
+  
+<section id="eventos" class="eventos-section">
+  <h2 class="eventos-title">Próximos Eventos</h2>
+  <div class="carousel-container">
+    <div class="carousel-track">
+      <article class="evento-card">
+        <img src="/public/src/cabaña fest (1).png" alt="Poster Rosarito">
+        <h3>04 Abril 2026 – Rosarito</h3>
+        <p>Adolfo Ruiz Cortines 201, Amp Mazatlan, 22707 Playas de Rosarito, B.C.</p>
+        <a href="/public/compraboletos.html" class="btn-comprar">Comprar boletos</a>
+      </article>
+
+      <article class="evento-card">
+        <img src="/public/src/porter.jpg" alt="Poster Veracruz">
+        <h3>20 Febrero 2026 </h3>
+        <p>BlackBox, Av. Revolucion, Tijuana</p>
+        <a href="https://arema.mx/evento/15675" class="btn-comprar">Comprar boletos</a>
+      </article>
+
+      <article class="evento-card">
+        <img src="/public/src/silvana.jpg" alt="Poster Veracruz">
+        <h3>12 Febrero 2026 </h3>
+        <p>Teatro Manuel Doblado</p>
+        <a href="https://arema.mx/e/15487/silvana-estrada-en-leon" class="btn-comprar">Comprar boletos</a>
+      </article>
+
+      <article class="evento-card">
+        <img src="/public/src/arath.jpg" alt="Poster Veracruz">
+        <h3>25 septiembre 2026 </h3>
+        <p>BlackBox, Av. Revolucion, Tijuana</p>
+        <a href="https://arema.mx/evento/17120" class="btn-comprar">Comprar boletos</a>
+      </article>
+
+      
+      
+
+
+      <!-- Más eventos -->
+    </div>
+    <button class="carousel-btn left">◀</button>
+    <button class="carousel-btn right">▶</button>
+  </div>
+</section>
+
+<script>
+  const track = document.querySelector('.carousel-track');
+const btnLeft = document.querySelector('.carousel-btn.left');
+const btnRight = document.querySelector('.carousel-btn.right');
+
+let index = 0;
+
+btnLeft.addEventListener('click', () => {
+  index = Math.max(index - 1, 0);
+  track.style.transform = `translateX(-${index * 360}px)`;
+});
+
+btnRight.addEventListener('click', () => {
+  index = Math.min(index + 1, track.children.length - 1);
+  track.style.transform = `translateX(-${index * 360}px)`;
+});
+</script>
+    
+  <footer>
+    <p>&copy; 2026 Cabaña Fest. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

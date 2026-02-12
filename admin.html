@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - Cabaña Fest</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="/public/index.html">
+</head>
+<body>
+  <header>
+    <h1>Panel de Administración</h1>
+    <p>Mensajes recibidos desde el formulario</p>
+  </header>
+
+  <main>
+    <table id="tabla-mensajes">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Mensaje</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se insertarán los mensajes con JS -->
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    // Consumir la API de mensajes
+    fetch('/mensajes')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector('#tabla-mensajes tbody');
+        data.forEach(msg => {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${msg.nombre}</td>
+            <td>${msg.correo}</td>
+            <td>${msg.mensaje}</td>
+            <td>${new Date(msg.fecha).toLocaleString()}</td>
+          `;
+          tbody.appendChild(fila);
+        });
+      })
+      .catch(err => console.error("Error cargando mensajes:", err));
+  </script>
+</body>
+</html>

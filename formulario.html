@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cabaña Fest - Formulario</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Bungee+Shade&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bungee+Shade&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .contenedor {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-family: 'Bungee Shade', cursive;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .campo {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .resumen {
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .btn-comprar {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #751c01, #ec6d04);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-comprar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(117,28,1,0.4);
+    }
+    .mensaje-confirmacion {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <img src="src/cabaña fest.svg" alt="" class="imagen-portada">
+
+  <main class="contacto">
+    <div class="contenedor">
+      <h2>Compra tu boleto 🎟️</h2>
+      <!-- Formulario con action y method -->
+      <form id="formBoletos" action="https://formspree.io/f/mbdkwgqd" method="POST">
+        <div class="campo">
+          <label for="nombre">Tu nombre</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="campo">
+          <label for="email">Tu correo</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="campo">
+          <label for="boletos">Cantidad de boletos</label>
+          <select id="boletos" name="boletos" required>
+            <option value="">Selecciona cantidad</option>
+            <option value="1">1 boleto</option>
+            <option value="2">2 boletos</option>
+            <option value="3">3 boletos</option>
+            <option value="4">4 boletos</option>
+            <option value="5">5 boletos</option>
+          </select>
+        </div>
+
+        <div class="resumen" id="resumen">
+          Selecciona boletos para ver el total
+        </div>
+
+        <button type="submit" class="btn-comprar">Ir al pago</button>
+      </form>
+    </div>
+
+    <div class="info-contacto">
+      <h2>Hablemos de todo</h2>
+      <p>Queremos escucharte. Cuéntanos tus ideas, dudas o propuestas y nos pondremos en contacto contigo lo antes posible.</p>
+      <a href="#" class="link-mas">Leer más</a>
+    </div>
+  </main>
+
+  <div id="confirmacion" class="mensaje-confirmacion">
+    ¡Gracias por tu registro! Hemos recibido tu mensaje.
+  </div>
+
+  <footer>
+    <p>© 2026 Cabaña Fest - Toros Bravos Records</p>
+    <a href="https://instagram.com/tu_cuenta"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/tu_cuenta"><i class="fab fa-facebook"></i></a>
+  </footer>
+
+  <!-- Script único -->
+  <script>
+    const boletosSelect = document.getElementById("boletos");
+    const resumenDiv = document.getElementById("resumen");
+    const precioUnitario = 150; // 💰 precio por boleto en MXN
+
+    boletosSelect.addEventListener("change", () => {
+      const cantidad = boletosSelect.value;
+      if (cantidad) {
+        const total = cantidad * precioUnitario;
+        resumenDiv.textContent = `Has elegido ${cantidad} boleto(s). Total a pagar: $${total} MXN`;
+      } else {
+        resumenDiv.textContent = "Selecciona boletos para ver el total";
+      }
+    });
+
+    document.getElementById("formBoletos").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response) {
+        if (response.ok) {
+          // ✅ Redirigir al checkout de MercadoPago
+          window.location.href = "https://link.mercadopago.com.mx/pagoboletoscf";
+        } else {
+          alert('Hubo un problema al enviar el formulario.');
+        }
+      }).catch(function(error) {
+        alert('Hubo un problema al enviar el formulario.');
+      });
+    });
+  </script>
+</body>
+</html>
